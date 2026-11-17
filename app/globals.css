@@ -1,26 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Swish Brand */
+  --swish-green: #33C362;
+  --swish-green-dark: #27a050;
+  --swish-green-light: #e8f9ee;
+
+  /* Asian Category Palette - from Figma */
+  --warm-white: #F5F0E8;
+  --jasmine-cream: #EDE8D0;
+  --peanut-orange: #C4712A;
+  --chilli-red: #C0392B;
+  --curry-yellow: #8FA832;
+  --jade: #1C4A47;
+
+  /* Neutrals */
+  --off-white: #FAF8F4;
+  --warm-grey: #9B9690;
+  --dark-text: #1A1A1A;
+  --muted-text: #6B6460;
+  --border: #E5E0D8;
+  --surface: #FFFFFF;
+  --surface-warm: #F5F0E8;
+
+  /* Typography */
+  --font-body: 'Figtree', system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--off-white);
+  color: var(--dark-text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--warm-white); }
+::-webkit-scrollbar-thumb { background: var(--swish-green); border-radius: 3px; }
+
+/* Utilities */
+.text-swish-green { color: var(--swish-green); }
+.bg-swish-green { background-color: var(--swish-green); }
+.bg-warm-white { background-color: var(--warm-white); }
+.bg-jasmine { background-color: var(--jasmine-cream); }
+
+/* Section transitions */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.section-reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Veg / Non-veg indicators */
+.veg-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1.5px solid #2E7D32;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.veg-dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2E7D32;
+}
+.nonveg-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1.5px solid #C62828;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nonveg-dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C62828;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
