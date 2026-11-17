@@ -36,6 +36,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -56,6 +57,12 @@ body {
 .bg-swish-green { background-color: var(--swish-green); }
 .bg-warm-white { background-color: var(--warm-white); }
 .bg-jasmine { background-color: var(--jasmine-cream); }
+
+/* Scroll snap */
+main > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
 
 /* Section transitions */
 .section-reveal {
