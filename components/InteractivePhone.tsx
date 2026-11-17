@@ -298,6 +298,32 @@ function ProductCard({ product, qty, onAdd, onDec, onSelectProduct, showOriginal
   );
 }
 
+function useDragScroll() {
+  const el = useRef<HTMLDivElement>(null);
+  const drag = useRef({ on: false, startY: 0, startScroll: 0, moved: false });
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!el.current) return;
+    e.preventDefault(); // stops browser image-drag ghost
+    drag.current = { on: true, startY: e.clientY, startScroll: el.current.scrollTop, moved: false };
+    el.current.style.userSelect = "none";
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!drag.current.on || !el.current) return;
+    const dy = drag.current.startY - e.clientY;
+    if (Math.abs(dy) > 4) drag.current.moved = true;
+    el.current.scrollTop = drag.current.startScroll + dy;
+  };
+  const stop = () => {
+    if (el.current) el.current.style.userSelect = "";
+    drag.current.on = false;
+    setTimeout(() => { drag.current.moved = false; }, 0);
+  };
+  const didDrag = () => drag.current.moved;
+
+  return { ref: el, props: { onMouseDown, onMouseMove, onMouseUp: stop, onMouseLeave: stop }, didDrag };
+}
+
 function CategoryScreen({ vegFilter, setVegFilter, activeCategory, setActiveCategory, onSelectProduct, cart, onUpdateCart, showOriginal }: {
   vegFilter: boolean;
   setVegFilter: (v: boolean) => void;
@@ -308,6 +334,8 @@ function CategoryScreen({ vegFilter, setVegFilter, activeCategory, setActiveCate
   onUpdateCart: (c: CartItem[]) => void;
   showOriginal: boolean;
 }) {
+  const scroll = useDragScroll();
+
   const filtered = products
     .filter(p => vegFilter ? p.category === "veg" : true)
     .filter(p => activeCategory === "all" || productMeta[p.id]?.subcategory === activeCategory);
@@ -334,7 +362,7 @@ function CategoryScreen({ vegFilter, setVegFilter, activeCategory, setActiveCate
   };
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", background: "#f0faf3" }}>
+    <div ref={scroll.ref} {...scroll.props} style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", background: "#f0faf3" }}>
       <SearchBar vegFilter={vegFilter} setVegFilter={setVegFilter} />
       <CategoryTabs active={activeCategory} setActive={setActiveCategory} />
 
@@ -347,7 +375,7 @@ function CategoryScreen({ vegFilter, setVegFilter, activeCategory, setActiveCate
             qty={getQty(product.id)}
             onAdd={() => addItem(product)}
             onDec={() => decItem(product)}
-            onSelectProduct={() => onSelectProduct(product)}
+            onSelectProduct={() => { if (!scroll.didDrag()) onSelectProduct(product); }}
             showOriginal={showOriginal}
           />
         ))}
@@ -385,6 +413,7 @@ function ProductDetailScreen({ product, cart, onUpdateCart, onBack, showOriginal
   onBack: () => void;
   showOriginal: boolean;
 }) {
+  const scroll = useDragScroll();
   const qty = cart.find(c => c.id === product.id)?.qty ?? 0;
   const img = showOriginal && product.rawImage ? product.rawImage : product.heroImage;
 
@@ -403,7 +432,7 @@ function ProductDetailScreen({ product, cart, onUpdateCart, onBack, showOriginal
   };
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", background: "#fff", display: "flex", flexDirection: "column" }}>
+    <div ref={scroll.ref} {...scroll.props} style={{ flex: 1, overflowY: "auto", background: "#fff", display: "flex", flexDirection: "column" }}>
       {/* Hero image */}
       <div style={{ position: "relative", paddingTop: "75%", background: "#F5F0E8", flexShrink: 0 }}>
         {img ? (
@@ -479,6 +508,7 @@ function ProductDetailScreen({ product, cart, onUpdateCart, onBack, showOriginal
 }
 
 function CartScreen({ cart, onUpdateCart }: { cart: CartItem[]; onUpdateCart: (c: CartItem[]) => void }) {
+  const scroll = useDragScroll();
   const updateQty = (id: string, delta: number) => {
     const item = cart.find(c => c.id === id);
     if (!item) return;
@@ -501,7 +531,7 @@ function CartScreen({ cart, onUpdateCart }: { cart: CartItem[]; onUpdateCart: (c
   }
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", background: "#f0faf3", padding: 12 }}>
+    <div ref={scroll.ref} {...scroll.props} style={{ flex: 1, overflowY: "auto", background: "#f0faf3", padding: 12 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
         {cart.map(item => (
           <div key={item.id} style={{
@@ -662,161 +692,174 @@ export default function InteractivePhone() {
     <section
       id="app"
       ref={ref}
-      style={{ background: "var(--warm-white)", padding: "100px 32px" }}
+      style={{
+        background: "var(--warm-white)",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        padding: "60px 48px",
+      }}
     >
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{
-          textAlign: "center", marginBottom: 60,
-          opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(20px)",
-          transition: "all 0.6s ease",
-        }}>
-          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: "3px", color: "var(--swish-green)", marginBottom: 16 }}>
+      <div style={{
+        maxWidth: 1280,
+        margin: "0 auto",
+        width: "100%",
+        display: "grid",
+        gridTemplateColumns: "1fr auto 1fr",
+        gap: "clamp(32px, 5vw, 72px)",
+        alignItems: "center",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "none" : "translateY(24px)",
+        transition: "opacity 0.6s ease, transform 0.6s ease",
+      }}>
+
+        {/* ── LEFT: Header text ── */}
+        <div>
+          <div style={{
+            fontWeight: 700, fontSize: 11, letterSpacing: "3px",
+            color: "var(--swish-green)", marginBottom: 20,
+          }}>
             04 — THE APP
           </div>
           <h2 style={{
             fontFamily: "var(--font-body)", fontWeight: 900,
-            fontSize: "clamp(32px, 5vw, 60px)", lineHeight: 1.05,
-            letterSpacing: "-1.5px", color: "var(--jade)", marginBottom: 16,
+            fontSize: "clamp(26px, 3.2vw, 48px)", lineHeight: 1.05,
+            letterSpacing: "-1.5px", color: "var(--jade)", marginBottom: 20,
           }}>
-            NOT JUST A PRETTY PICTURE.<br />
-            <span style={{ color: "var(--swish-green)" }}>A PRODUCT THAT SELLS.</span>
+            NOT JUST A<br />PRETTY PICTURE.<br />
+            <span style={{ color: "var(--swish-green)" }}>A PRODUCT<br />THAT SELLS.</span>
           </h2>
-          <p style={{ fontSize: 16, color: "var(--muted-text)", maxWidth: 540, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ fontSize: 15, color: "var(--muted-text)", lineHeight: 1.7, maxWidth: 360 }}>
             See how the new Asian category lives inside the Swish experience. Fully interactive — tap products, add to cart, filter by diet.
           </p>
         </div>
 
-        <div style={{
-          display: "flex", gap: 60, alignItems: "center", justifyContent: "center", flexWrap: "wrap",
-          opacity: visible ? 1 : 0, transform: visible ? "none" : "translateY(32px)",
-          transition: "all 0.8s ease 0.2s",
-        }}>
-          {/* iPhone device */}
-          <div style={{ position: "relative" }}>
-            {/* Shadow */}
-            <div style={{
-              position: "absolute", bottom: -24, left: "50%", transform: "translateX(-50%)",
-              width: "70%", height: 40,
-              background: "radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%)",
-              filter: "blur(12px)",
-            }} />
-            {/* Frame */}
-            <div style={{
-              width: 320, height: 672, background: "#1A1A1A", borderRadius: 48, padding: "0 3px",
-              boxShadow: "0 0 0 1px #333, 0 40px 80px rgba(0,0,0,0.4), inset 0 0 0 1px #444",
-              position: "relative", overflow: "hidden",
-            }}>
-              <div style={{ position: "absolute", left: -3, top: 100, width: 3, height: 32, background: "#333", borderRadius: "2px 0 0 2px" }} />
-              <div style={{ position: "absolute", left: -3, top: 148, width: 3, height: 56, background: "#333", borderRadius: "2px 0 0 2px" }} />
-              <div style={{ position: "absolute", left: -3, top: 212, width: 3, height: 56, background: "#333", borderRadius: "2px 0 0 2px" }} />
-              <div style={{ position: "absolute", right: -3, top: 164, width: 3, height: 72, background: "#333", borderRadius: "0 2px 2px 0" }} />
+        {/* ── CENTRE: iPhone ── */}
+        <div style={{ position: "relative" }}>
+          {/* Shadow */}
+          <div style={{
+            position: "absolute", bottom: -24, left: "50%", transform: "translateX(-50%)",
+            width: "70%", height: 40,
+            background: "radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%)",
+            filter: "blur(12px)",
+          }} />
+          {/* Frame */}
+          <div style={{
+            width: 300, height: 630, background: "#1A1A1A", borderRadius: 46, padding: "0 3px",
+            boxShadow: "0 0 0 1px #333, 0 40px 80px rgba(0,0,0,0.4), inset 0 0 0 1px #444",
+            position: "relative", overflow: "hidden",
+          }}>
+            <div style={{ position: "absolute", left: -3, top: 94,  width: 3, height: 30, background: "#333", borderRadius: "2px 0 0 2px" }} />
+            <div style={{ position: "absolute", left: -3, top: 138, width: 3, height: 52, background: "#333", borderRadius: "2px 0 0 2px" }} />
+            <div style={{ position: "absolute", left: -3, top: 198, width: 3, height: 52, background: "#333", borderRadius: "2px 0 0 2px" }} />
+            <div style={{ position: "absolute", right: -3, top: 154, width: 3, height: 68, background: "#333", borderRadius: "0 2px 2px 0" }} />
 
-              {/* Screen */}
-              <div style={{
-                width: "100%", height: "100%", background: "#f0faf3",
-                borderRadius: 46, overflow: "hidden",
-                display: "flex", flexDirection: "column",
-              }}>
-                <StatusBar time={time} />
-                <AppHeader
-                  cartCount={cartCount}
-                  onCartClick={() => setScreen("cart")}
-                  currentScreen={screen}
-                  onBack={() => { setScreen("category"); setSelectedProduct(null); }}
+            {/* Screen */}
+            <div style={{
+              width: "100%", height: "100%", background: "#f0faf3",
+              borderRadius: 44, overflow: "hidden",
+              display: "flex", flexDirection: "column",
+            }}>
+              <StatusBar time={time} />
+              <AppHeader
+                cartCount={cartCount}
+                onCartClick={() => setScreen("cart")}
+                currentScreen={screen}
+                onBack={() => { setScreen("category"); setSelectedProduct(null); }}
+              />
+              {screen === "category" && (
+                <CategoryScreen
+                  vegFilter={vegFilter}
+                  setVegFilter={setVegFilter}
+                  activeCategory={activeCategory}
+                  setActiveCategory={setActiveCategory}
+                  onSelectProduct={handleSelectProduct}
+                  cart={cart}
+                  onUpdateCart={setCart}
+                  showOriginal={showOriginal}
                 />
-                {screen === "category" && (
-                  <CategoryScreen
-                    vegFilter={vegFilter}
-                    setVegFilter={setVegFilter}
-                    activeCategory={activeCategory}
-                    setActiveCategory={setActiveCategory}
-                    onSelectProduct={handleSelectProduct}
-                    cart={cart}
-                    onUpdateCart={setCart}
-                    showOriginal={showOriginal}
-                  />
-                )}
-                {screen === "product" && selectedProduct && (
-                  <ProductDetailScreen
-                    product={selectedProduct}
-                    cart={cart}
-                    onUpdateCart={setCart}
-                    onBack={() => { setScreen("category"); setSelectedProduct(null); }}
-                    showOriginal={showOriginal}
-                  />
-                )}
-                {screen === "cart" && (
-                  <CartScreen cart={cart} onUpdateCart={setCart} />
-                )}
-                <BottomNav screen={screen} setScreen={setScreen} cartCount={cartCount} />
-              </div>
-            </div>
-          </div>
-
-          {/* Controls panel */}
-          <div style={{ maxWidth: 300 }}>
-            <div style={{
-              background: "#fff", borderRadius: 20, padding: 24,
-              border: "1px solid var(--border)", marginBottom: 16,
-            }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "var(--swish-green)", marginBottom: 16 }}>
-                INTERACTIVE PROTOTYPE
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {[
-                  { screen: "category" as Screen, label: "CATEGORY GRID" },
-                  { screen: "cart" as Screen, label: "CART VIEW" },
-                ].map(btn => (
-                  <button
-                    key={btn.screen}
-                    onClick={() => { setScreen(btn.screen); setSelectedProduct(null); }}
-                    style={{
-                      padding: "10px 16px", borderRadius: 10, border: "1.5px solid",
-                      borderColor: screen === btn.screen ? "var(--swish-green)" : "var(--border)",
-                      background: screen === btn.screen ? "var(--swish-green-light)" : "#fff",
-                      color: screen === btn.screen ? "var(--jade)" : "var(--muted-text)",
-                      fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 11,
-                      letterSpacing: "0.5px", cursor: "pointer", textAlign: "left" as const,
-                    }}
-                  >
-                    {btn.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Before/after toggle */}
-            <div style={{ background: "var(--jade)", color: "#fff", borderRadius: 20, padding: 24 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "var(--swish-green)", marginBottom: 12 }}>
-                BEFORE / AFTER TOGGLE
-              </div>
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", lineHeight: 1.5, marginBottom: 16 }}>
-                Switch between the original kitchen reference photos and the final AI-generated product images.
-              </p>
-              <div style={{ background: "rgba(255,255,255,0.1)", padding: 4, borderRadius: 12, display: "flex" }}>
-                {[
-                  { val: false, label: "NEW ASIAN LOOK" },
-                  { val: true, label: "ORIGINAL CATALOGUE" },
-                ].map(opt => (
-                  <button
-                    key={String(opt.val)}
-                    onClick={() => setShowOriginal(opt.val)}
-                    style={{
-                      flex: 1, padding: "8px 10px", borderRadius: 8, border: "none",
-                      background: showOriginal === opt.val ? "#fff" : "transparent",
-                      color: showOriginal === opt.val ? "var(--jade)" : "rgba(255,255,255,0.7)",
-                      fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 10,
-                      letterSpacing: "0.5px", cursor: "pointer", transition: "all 0.2s",
-                    }}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
+              )}
+              {screen === "product" && selectedProduct && (
+                <ProductDetailScreen
+                  product={selectedProduct}
+                  cart={cart}
+                  onUpdateCart={setCart}
+                  onBack={() => { setScreen("category"); setSelectedProduct(null); }}
+                  showOriginal={showOriginal}
+                />
+              )}
+              {screen === "cart" && (
+                <CartScreen cart={cart} onUpdateCart={setCart} />
+              )}
+              <BottomNav screen={screen} setScreen={setScreen} cartCount={cartCount} />
             </div>
           </div>
         </div>
+
+        {/* ── RIGHT: Controls ── */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* Screen switcher */}
+          <div style={{
+            background: "#fff", borderRadius: 20, padding: 24,
+            border: "1px solid var(--border)",
+          }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "var(--swish-green)", marginBottom: 16 }}>
+              INTERACTIVE PROTOTYPE
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {[
+                { screen: "category" as Screen, label: "CATEGORY GRID" },
+                { screen: "cart" as Screen, label: "CART VIEW" },
+              ].map(btn => (
+                <button
+                  key={btn.screen}
+                  onClick={() => { setScreen(btn.screen); setSelectedProduct(null); }}
+                  style={{
+                    padding: "10px 16px", borderRadius: 10, border: "1.5px solid",
+                    borderColor: screen === btn.screen ? "var(--swish-green)" : "var(--border)",
+                    background: screen === btn.screen ? "var(--swish-green-light)" : "#fff",
+                    color: screen === btn.screen ? "var(--jade)" : "var(--muted-text)",
+                    fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 11,
+                    letterSpacing: "0.5px", cursor: "pointer", textAlign: "left" as const,
+                  }}
+                >
+                  {btn.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Before/after toggle */}
+          <div style={{ background: "var(--jade)", color: "#fff", borderRadius: 20, padding: 24 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "var(--swish-green)", marginBottom: 12 }}>
+              BEFORE / AFTER TOGGLE
+            </div>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", lineHeight: 1.5, marginBottom: 16 }}>
+              Switch between the original kitchen reference photos and the final AI-generated product images.
+            </p>
+            <div style={{ background: "rgba(255,255,255,0.1)", padding: 4, borderRadius: 12, display: "flex" }}>
+              {[
+                { val: false, label: "NEW ASIAN LOOK" },
+                { val: true,  label: "ORIGINAL CATALOGUE" },
+              ].map(opt => (
+                <button
+                  key={String(opt.val)}
+                  onClick={() => setShowOriginal(opt.val)}
+                  style={{
+                    flex: 1, padding: "8px 10px", borderRadius: 8, border: "none",
+                    background: showOriginal === opt.val ? "#fff" : "transparent",
+                    color: showOriginal === opt.val ? "var(--jade)" : "rgba(255,255,255,0.7)",
+                    fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 10,
+                    letterSpacing: "0.5px", cursor: "pointer", transition: "all 0.2s",
+                  }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

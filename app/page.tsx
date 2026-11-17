@@ -1,4 +1,5 @@
 import SplashScreen from "@/components/SplashScreen";
+import ChopstickCursor from "@/components/ChopstickCursor";
 import Navbar from "@/components/Navbar";
 import LaunchHero from "@/components/LaunchHero";
 import CategoryIntro from "@/components/CategoryIntro";
@@ -13,6 +14,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <ChopstickCursor />
       <SplashScreen />
       <Navbar />
       <main>
