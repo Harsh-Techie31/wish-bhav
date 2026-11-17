@@ -55,35 +55,19 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => scrollTo("launch")}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-          }}
+          style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center" }}
         >
-          <span style={{
-            fontFamily: "var(--font-body)",
-            fontWeight: 800,
-            fontSize: 20,
-            color: scrolled ? "#1A1A1A" : "#fff",
-            letterSpacing: "-0.5px",
-          }}>
-            <span style={{ color: "var(--swish-green)" }}>*</span>swish
-          </span>
-          <span style={{
-            fontSize: 10,
-            fontWeight: 600,
-            letterSpacing: "2px",
-            color: scrolled ? "var(--swish-green)" : "rgba(255,255,255,0.7)",
-            textTransform: "uppercase",
-            paddingLeft: 8,
-            borderLeft: "1px solid currentColor",
-          }}>
-            ASIAN LAUNCH
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/swish-logo.png"
+            alt="Swish — 10-minute food delivery"
+            style={{
+              height: 30,
+              width: "auto",
+              filter: scrolled ? "none" : "brightness(0) invert(1)",
+              transition: "filter 0.3s ease",
+            }}
+          />
         </button>
 
         {/* Desktop nav */}

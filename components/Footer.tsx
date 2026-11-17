@@ -9,9 +9,12 @@ export default function Footer() {
     }}>
       <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontFamily: "var(--font-body)", fontWeight: 800, fontSize: 18, color: "#fff" }}>
-            <span style={{ color: "var(--swish-green)" }}>*</span>swish
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/swish-logo.png"
+            alt="Swish — 10-minute food delivery"
+            style={{ height: 26, width: "auto", filter: "brightness(0) invert(1)" }}
+          />
           <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Asian Category Launch — Visual Merchandising Assignment</span>
         </div>
         <div style={{ display: "flex", gap: 24, fontSize: 12, fontWeight: 500 }}>
