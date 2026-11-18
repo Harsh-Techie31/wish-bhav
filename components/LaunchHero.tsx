@@ -197,28 +197,6 @@ export default function LaunchHero() {
           </a>
         </div>
 
-        {/* Stats row */}
-        <div style={{
-          display: "flex",
-          gap: 48,
-          marginTop: 80,
-          paddingTop: 32,
-          borderTop: "1px solid rgba(255,255,255,0.15)",
-          opacity: loaded ? 1 : 0,
-          transition: "opacity 0.8s ease 0.8s",
-        }}>
-          {[
-            { n: "5", label: "New SKUs" },
-            { n: "2", label: "Final hero images" },
-            { n: "3+", label: "AI iterations per dish" },
-            { n: "10", label: "Minutes to your door" },
-          ].map(stat => (
-            <div key={stat.label}>
-              <div style={{ fontWeight: 800, fontSize: 32, color: "var(--swish-green)", lineHeight: 1 }}>{stat.n}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontWeight: 500, marginTop: 4, letterSpacing: "0.5px" }}>{stat.label}</div>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Scroll indicator */}

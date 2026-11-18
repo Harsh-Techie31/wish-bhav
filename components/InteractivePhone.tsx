@@ -127,8 +127,8 @@ function SearchBar({ vegFilter, setVegFilter }: { vegFilter: boolean; setVegFilt
 function CategoryTabs({ active, setActive }: { active: string; setActive: (c: string) => void }) {
   const tabs = [
     { id: "all", label: "All Items", type: "starburst" },
-    { id: "noodles", label: "Noodles", img: "/images/products/veg-pad-thai.png" },
-    { id: "curries", label: "Curries", img: "/images/products/veg-green-thai-curry.png" },
+    { id: "noodles", label: "Noodles", img: "/images/products/veg-pad-thai.webp" },
+    { id: "curries", label: "Curries", img: "/images/products/veg-green-thai-curry.webp" },
     { id: "combos", label: "Combos", emoji: "🍱" },
   ];
 

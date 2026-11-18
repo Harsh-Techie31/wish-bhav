@@ -14,11 +14,11 @@ export default function FinalDeliverables() {
   }, []);
 
   const deliverables = [
-    { filename: "SWISH_ASIAN_VegPadThai_1x1.jpg", status: "ready", size: "2000×2000px", src: "/images/products/veg-pad-thai.png", sku: products[0] },
-    { filename: "SWISH_ASIAN_ChickenPadThai_1x1.jpg", status: "iteration", size: "1784×1784px", src: "/images/iterations/chicken-pad-thai-iter1.png", sku: products[1] },
-    { filename: "SWISH_ASIAN_VegGreenThaiCurry_1x1.jpg", status: "ready", size: "2000×2000px", src: "/images/products/veg-green-thai-curry.png", sku: products[2] },
-    { filename: "SWISH_ASIAN_ChickenGreenThaiCurry_1x1.jpg", status: "pending", size: "2000×2000px", src: null, sku: products[3] },
-    { filename: "SWISH_ASIAN_VegCombo_1x1.jpg", status: "pending", size: "2000×2000px", src: null, sku: products[4] },
+    { filename: "SWISH_ASIAN_VegPadThai_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-pad-thai.webp", sku: products[0] },
+    { filename: "SWISH_ASIAN_ChickenPadThai_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/chicken-pad-thai.webp", sku: products[1] },
+    { filename: "SWISH_ASIAN_VegGreenThaiCurry_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-green-thai-curry.webp", sku: products[2] },
+    { filename: "SWISH_ASIAN_ChickenGreenThaiCurry_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/chicken-green-thai-curry.webp", sku: products[3] },
+    { filename: "SWISH_ASIAN_VegCombo_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-combo.webp", sku: products[4] },
   ];
 
   const statusColors: Record<string, string> = {
@@ -182,11 +182,14 @@ export default function FinalDeliverables() {
           <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 16, padding: 24 }}>
             <div style={{ fontWeight: 800, fontSize: 14, color: "#fff", marginBottom: 16 }}>ASSETS COMPLETED</div>
             {[
-              "SWISH_ASIAN_VegPadThai_1x1.jpg — 2000×2000px",
-              "SWISH_ASIAN_VegGreenThaiCurry_1x1.jpg — 2000×2000px",
-              "SWISH_ASIAN_ChickenPadThai_iteration.jpg — 1784×1784px",
-              "Raw reference photos — 3 of 5 SKUs",
+              "SWISH_ASIAN_VegPadThai_1x1.webp — 2000×2000px",
+              "SWISH_ASIAN_ChickenPadThai_1x1.webp — 2000×2000px",
+              "SWISH_ASIAN_VegGreenThaiCurry_1x1.webp — 2000×2000px",
+              "SWISH_ASIAN_ChickenGreenThaiCurry_1x1.webp — 2000×2000px",
+              "SWISH_ASIAN_VegCombo_1x1.webp — 2000×2000px",
+              "Raw reference photos — 4 of 5 SKUs (Combo: none needed)",
               "AI generation prompts — all 5 SKUs documented",
+              "Failed iterations — 25 total across all SKUs",
               "Moodboard — complete (Figma)",
               "Visual direction brief — complete",
               "Shoot sheets — 5 SKUs (Figma)",
@@ -199,29 +202,29 @@ export default function FinalDeliverables() {
           </div>
 
           <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: 16, padding: 24 }}>
-            <div style={{ fontWeight: 800, fontSize: 14, color: "#fff", marginBottom: 16 }}>OUTSTANDING</div>
+            <div style={{ fontWeight: 800, fontSize: 14, color: "#fff", marginBottom: 16 }}>DERIVATIVE ASSETS</div>
             {[
-              "SWISH_ASIAN_ChickenGreenThaiCurry_1x1.jpg — final image",
-              "SWISH_ASIAN_VegCombo_1x1.jpg — final image",
-              "5× PDP crops (pending final images)",
-              "1× category banner 16:9 (pending final images)",
+              "5× PDP crops — square hero at 1080×1080px",
+              "1× category banner 16:9 — using combo hero",
+              "App grid thumbnails — 400×400px per SKU",
+              "Push notification thumbnail — 72×72px per SKU",
             ].map(item => (
               <div key={item} style={{ display: "flex", gap: 10, marginBottom: 8, fontSize: 12, lineHeight: 1.4 }}>
-                <span style={{ color: "rgba(255,165,0,0.9)", fontWeight: 700, flexShrink: 0 }}>⟳</span>
+                <span style={{ color: "rgba(255,165,0,0.9)", fontWeight: 700, flexShrink: 0 }}>→</span>
                 <span style={{ color: "rgba(255,255,255,0.65)" }}>{item}</span>
               </div>
             ))}
             <div style={{
               marginTop: 16,
               padding: "12px 16px",
-              background: "rgba(255,255,255,0.05)",
+              background: "rgba(51,195,98,0.08)",
               borderRadius: 10,
               fontSize: 12,
-              color: "rgba(255,255,255,0.5)",
+              color: "rgba(255,255,255,0.6)",
               lineHeight: 1.6,
-              fontStyle: "italic",
+              borderLeft: "2px solid var(--swish-green)",
             }}>
-              Prompts for all outstanding images are fully documented in the Figma shoot sheets. Generation can proceed when approved.
+              All 5 hero finals are approved and ready. Derivative exports can be generated from the master 2000×2000px files above.
             </div>
           </div>
         </div>

@@ -71,7 +71,7 @@ export default function CategoryIntro() {
               transform: visible ? "none" : "translateY(16px)",
               transition: "all 0.6s ease 0.2s",
             }}>
-              Swish&apos;s Asian category brings five new dishes to the app — four individual favourites and one generous combo. Each image was art-directed, shot as a real reference, and refined through AI to tell the truth about what lands on your doorstep in ten minutes.
+              Swish&apos;s Asian category brings five new dishes to the app — four individual favourites and one generous combo.
             </p>
 
             <div style={{
@@ -108,83 +108,66 @@ export default function CategoryIntro() {
               ))}
             </div>
 
-            <div style={{
-              marginTop: 32,
-              padding: "16px 20px",
-              background: "var(--swish-green-light)",
-              borderRadius: 10,
-              borderLeft: "3px solid var(--swish-green)",
-              opacity: visible ? 1 : 0,
-              transition: "opacity 0.6s ease 0.5s",
-            }}>
-              <p style={{ fontSize: 13, color: "var(--jade)", lineHeight: 1.6, fontWeight: 500 }}>
-                Every image shows exactly what you get. No fantasy food, no extra garnishes, no impossible plating. What you see is what gets delivered.
-              </p>
-            </div>
           </div>
 
-          {/* Right — split image panel */}
+          {/* Right — stacked image deck */}
           <div style={{
-            display: "grid",
-            gridTemplateRows: "1fr 1fr",
-            gap: 12,
+            position: "relative",
             height: 560,
             opacity: visible ? 1 : 0,
             transform: visible ? "none" : "translateX(24px)",
             transition: "all 0.8s ease 0.2s",
           }}>
-            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
-              <Image
-                src="/images/products/veg-pad-thai.png"
-                alt="Veg Pad Thai Noodles"
-                fill
-                style={{ objectFit: "cover", objectPosition: "center 30%" }}
-                sizes="600px"
-              />
-              <div style={{
-                position: "absolute",
-                bottom: 12,
-                left: 12,
-                background: "rgba(255,255,255,0.9)",
-                padding: "4px 10px",
-                borderRadius: 20,
-                fontSize: 11,
-                fontWeight: 700,
-                color: "var(--jade)",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}>
-                <span className="veg-dot" />
-                VEG PAD THAI
+            {[
+              { src: "/images/products/veg-pad-thai.webp",              label: "Veg Pad Thai",              veg: true,  offset: 144, rotation: 1.5,  zIndex: 1 },
+              { src: "/images/products/chicken-pad-thai.webp",          label: "Chicken Pad Thai",          veg: false, offset: 108, rotation: -2.5, zIndex: 2 },
+              { src: "/images/products/veg-green-thai-curry.webp",      label: "Veg Green Thai Curry",      veg: true,  offset: 72,  rotation: 2,    zIndex: 3 },
+              { src: "/images/products/chicken-green-thai-curry.webp",  label: "Chicken Green Thai Curry",  veg: false, offset: 36,  rotation: -1.5, zIndex: 4 },
+              { src: "/images/products/veg-combo.webp",                 label: "Veg Combo",                 veg: true,  offset: 0,   rotation: 0,    zIndex: 5 },
+            ].map(card => (
+              <div
+                key={card.src}
+                style={{
+                  position: "absolute",
+                  top: card.offset,
+                  left: "50%",
+                  transform: `translateX(-50%) rotate(${card.rotation}deg)`,
+                  width: "90%",
+                  height: 400,
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  zIndex: card.zIndex,
+                  boxShadow: card.zIndex === 5
+                    ? "0 20px 60px rgba(0,0,0,0.28)"
+                    : "0 4px 16px rgba(0,0,0,0.14)",
+                }}
+              >
+                <Image
+                  src={card.src}
+                  alt={card.label}
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center 30%" }}
+                  sizes="600px"
+                />
+                <div style={{
+                  position: "absolute",
+                  bottom: 12,
+                  left: 12,
+                  background: "rgba(255,255,255,0.9)",
+                  padding: "4px 10px",
+                  borderRadius: 20,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "var(--jade)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}>
+                  <span className={card.veg ? "veg-dot" : "nonveg-dot"} />
+                  {card.label.toUpperCase()}
+                </div>
               </div>
-            </div>
-            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
-              <Image
-                src="/images/products/veg-green-thai-curry.png"
-                alt="Veg Green Thai Curry"
-                fill
-                style={{ objectFit: "cover", objectPosition: "center 40%" }}
-                sizes="600px"
-              />
-              <div style={{
-                position: "absolute",
-                bottom: 12,
-                left: 12,
-                background: "rgba(255,255,255,0.9)",
-                padding: "4px 10px",
-                borderRadius: 20,
-                fontSize: 11,
-                fontWeight: 700,
-                color: "var(--jade)",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}>
-                <span className="veg-dot" />
-                VEG GREEN THAI CURRY
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

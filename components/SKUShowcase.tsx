@@ -620,15 +620,6 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
                       style={{ position: "relative", paddingTop: "100%", borderRadius: 10, overflow: "hidden", cursor: "zoom-in" }}
                     >
                       <Image src={iter.src} alt={iter.label} fill style={{ objectFit: "cover" }} sizes="130px" />
-                      {iter.rejected && (
-                        <div style={{
-                          position: "absolute", inset: 0,
-                          background: "rgba(198,40,40,0.55)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}>
-                          <span style={{ fontSize: 9, fontWeight: 700, color: "#fff", letterSpacing: "1px" }}>REJECTED</span>
-                        </div>
-                      )}
                       <div style={{
                         position: "absolute", bottom: 0, left: 0, right: 0,
                         background: "rgba(0,0,0,0.55)",
@@ -859,7 +850,7 @@ export default function SKUShowcase() {
         {/* Product grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+          gridTemplateColumns: "repeat(5, 1fr)",
           gap: 24,
         }}>
           {filtered.map((product, index) => (

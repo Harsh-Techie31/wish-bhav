@@ -38,8 +38,6 @@ export const products: Product[] = [
     iterations: [
       { src: "/images/iterations/veg-pad-thai-iter1.webp", label: "Iteration 1", rejected: true, reason: "Dark green backdrop — wide frame, fork & glass visible, lacks product focus" },
       { src: "/images/iterations/veg-pad-thai-iter2.webp", label: "Iteration 2", rejected: true, reason: "Dark green — tofu scattered across bowl, no dominant hero placement" },
-      { src: "/images/iterations/veg-pad-thai-iter3.webp", label: "Iteration 3", rejected: true, reason: "Wrong surface — warm beige with wooden board, tofu lift action but off-brief background" },
-      { src: "/images/iterations/veg-pad-thai-iter4.webp", label: "Iteration 4", rejected: true, reason: "Wrong surface — warm beige with wooden board, off-brief" },
       { src: "/images/iterations/veg-pad-thai-iter5.webp", label: "Iteration 5", rejected: true, reason: "Wrong background — sage green linen, noodle-lift action but style mismatch" },
       { src: "/images/iterations/veg-pad-thai-iter6.webp", label: "Iteration 6", rejected: true, reason: "Wrong background — sage green, over-scattered garnish arrangement" },
     ],
@@ -99,7 +97,6 @@ Format: 2000x2000px, square, high-resolution food photography.`,
     iterations: [
       { src: "/images/iterations/chicken-pad-thai-iter1.webp", label: "Iteration 1", rejected: true, reason: "Wrong surface — warm beige, no wooden board, composition too plain" },
       { src: "/images/iterations/chicken-pad-thai-iter2.webp", label: "Iteration 2", rejected: true, reason: "Wrong background — sage green linen, style mismatch with brief" },
-      { src: "/images/iterations/chicken-pad-thai-iter3.webp", label: "Iteration 3", rejected: true, reason: "Wrong surface — warm beige with wooden board, water glass in frame" },
     ],
     prompt: `45-degree overhead food photography of Chicken Pad Thai in a wide white ceramic bowl, bowl occupies approximately 50-55% of the square frame and is centered slightly left of center, flat rice noodles with visible seared boneless chicken pieces, scrambled egg ribbons, bean sprouts, roasted crushed peanuts, julienned carrot and red bell pepper strips, spring onion rings garnished on top, single lime wedge resting on the bowl rim at 10 o'clock position, chopsticks lifting a tangle of noodles from the bowl showing separation and gloss — chopsticks are held in the lift action only, no loose chopsticks placed on the surface anywhere.
 

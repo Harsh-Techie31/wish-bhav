@@ -2,15 +2,61 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
-const chickenPadThaiPromptExcerpt = `45-degree overhead food photography of Chicken Pad Thai in a wide white ceramic bowl. Flat rice noodles with visible seared boneless chicken pieces, scrambled egg ribbons, bean sprouts, roasted crushed peanuts, julienned carrot and red bell pepper strips, spring onion rings garnished on top, single lime wedge resting on the bowl rim at 10 o'clock position, chopsticks lifting a tangle of noodles from the bowl showing separation and gloss.
+type SKUId = "veg-pad-thai" | "chicken-pad-thai" | "veg-green-thai-curry" | "chicken-green-thai-curry" | "veg-combo";
+
+const skus: {
+  id: SKUId;
+  label: string;
+  hasRaw: boolean;
+  rawImg: string | null;
+  finalImg: string;
+  prompt: string;
+  iterations: { src: string; label: string }[];
+}[] = [
+  {
+    id: "veg-pad-thai",
+    label: "Veg Pad Thai",
+    hasRaw: true,
+    rawImg: "/images/raw/veg-pad-thai-raw.webp",
+    finalImg: "/images/products/veg-pad-thai.webp",
+    prompt: `45-degree overhead food photography of Veg Pad Thai Noodles in a wide white ceramic bowl. Golden pan-seared tofu cubes as the hero protein on top — large, crispy-edged, clearly tofu not chicken. Flat rice noodles with bean sprouts, julienned carrot, red bell pepper, baby corn, broccoli floret, spring onion. Single lime wedge at 10 o'clock on bowl rim.
+
+Surface: deep dark forest-green textured linen. Bottom-right quadrant completely clear for UI overlay. Props: gold fork (bottom-left, partial), peanuts + red chilli rings (top-left), ribbed glass with lime (top-right, partial). Lighting: warm directional from upper-left, golden highlights catching the crispy tofu edges and noodle gloss.`,
+    iterations: [
+      { src: "/images/iterations/veg-pad-thai-iter1.webp", label: "Iteration 1" },
+      { src: "/images/iterations/veg-pad-thai-iter2.webp", label: "Iteration 2" },
+      { src: "/images/iterations/veg-pad-thai-iter3.webp", label: "Iteration 3" },
+      { src: "/images/iterations/veg-pad-thai-iter4.webp", label: "Iteration 4" },
+      { src: "/images/iterations/veg-pad-thai-iter5.webp", label: "Iteration 5" },
+      { src: "/images/iterations/veg-pad-thai-iter6.webp", label: "Iteration 6" },
+    ],
+  },
+  {
+    id: "chicken-pad-thai",
+    label: "Chicken Pad Thai",
+    hasRaw: true,
+    rawImg: "/images/raw/chicken-pad-thai-raw.webp",
+    finalImg: "/images/products/chicken-pad-thai.webp",
+    prompt: `45-degree overhead food photography of Chicken Pad Thai in a wide white ceramic bowl. Flat rice noodles with visible seared boneless chicken pieces, scrambled egg ribbons, bean sprouts, roasted crushed peanuts, julienned carrot and red bell pepper strips, spring onion rings garnished on top, single lime wedge resting on the bowl rim at 10 o'clock position, chopsticks lifting a tangle of noodles from the bowl showing separation and gloss.
 
 Surface: round dark walnut wooden serving board with natural live edge, sitting on warm off-white cream matte surface. Bottom-right quadrant completely empty for UI overlay.
 
 Props placed in the top half and left side: a small ceramic ramekin with Pad Thai sauce, one halved lime and lime wedge, 3–4 sliced red chilli rings, 2–3 fresh Thai basil leaves, 5–6 loose roasted peanuts, a tall ribbed glass of water with lemon at top-right corner (partially cropped).
 
-Lighting: soft warm directional from top-left, gentle shadow cast to bottom-right.`;
-
-const vegCurryPromptExcerpt = `Professional food photography of a Veg Green Thai Curry Bowl served alongside a bowl of fluffy jasmine rice. Camera: elevated 45–60 degree angle.
+Lighting: soft warm directional from top-left, gentle shadow cast to bottom-right.`,
+    iterations: [
+      { src: "/images/iterations/chicken-pad-thai-iter1.webp", label: "Iteration 1" },
+      { src: "/images/iterations/chicken-pad-thai-iter2.webp", label: "Iteration 2" },
+      { src: "/images/iterations/chicken-pad-thai-iter3.webp", label: "Iteration 3" },
+    ],
+  },
+  {
+    id: "veg-green-thai-curry",
+    label: "Veg Green Thai Curry",
+    hasRaw: true,
+    rawImg: "/images/raw/veg-green-thai-curry-raw.webp",
+    finalImg: "/images/products/veg-green-thai-curry.webp",
+    prompt: `Professional food photography of a Veg Green Thai Curry Bowl served alongside a bowl of fluffy jasmine rice. Camera: elevated 45–60 degree angle.
 
 Composition: Two bowls on a rustic wooden rectangular serving board — green Thai curry in foreground-left, jasmine rice in mid-right. Steel spoon placed diagonally. Small condiment bowl of crushed peanuts in background.
 
@@ -18,12 +64,60 @@ The curry: matte-finish ceramic bowl, creamy green coconut base — glossy, NOT 
 
 The rice: fluffy long-grain jasmine rice, grains individually visible and slightly translucent. Single basil leaf on top.
 
-Lighting: soft diffused from top-left, gentle highlights on curry surface. No harsh shadows.`;
+Lighting: soft diffused from top-left, gentle highlights on curry surface. No harsh shadows.`,
+    iterations: [
+      { src: "/images/iterations/veg-green-thai-curry-iter1.webp", label: "Iteration 1" },
+      { src: "/images/iterations/veg-green-thai-curry-iter2.webp", label: "Iteration 2" },
+      { src: "/images/iterations/veg-green-thai-curry-iter3.webp", label: "Iteration 3" },
+      { src: "/images/iterations/veg-green-thai-curry-iter4.webp", label: "Iteration 4" },
+      { src: "/images/iterations/veg-green-thai-curry-iter5.webp", label: "Iteration 5" },
+      { src: "/images/iterations/veg-green-thai-curry-iter6.webp", label: "Iteration 6" },
+    ],
+  },
+  {
+    id: "chicken-green-thai-curry",
+    label: "Chicken Green Thai Curry",
+    hasRaw: true,
+    rawImg: "/images/raw/chicken-green-thai-curry-raw.webp",
+    finalImg: "/images/products/chicken-green-thai-curry.webp",
+    prompt: `A close-up food photography shot of a Thai green chicken curry served in a matte ceramic bowl placed on a rustic wooden serving board. Rich creamy green coconut milk base. Large, golden-seared chicken pieces surfacing above the curry as the hero ingredient. Minimal vegetables — zucchini, baby corn. Thai basil leaves and sliced red chillies on top. Rice bowl beside with cilantro sprig. Steel spoon on right side of board.
+
+Background: warm muted sage green surface. Lighting: soft directional from upper-left, 45-degree angle. Chicken must be golden-seared and prominently above curry level. Bottom-right quadrant completely clear for UI overlay. Hyper-realistic commercial food photography, 8K.`,
+    iterations: [
+      { src: "/images/iterations/chicken-green-thai-curry-iter1.webp", label: "Iteration 1" },
+      { src: "/images/iterations/chicken-green-thai-curry-iter2.webp", label: "Iteration 2" },
+      { src: "/images/iterations/chicken-green-thai-curry-iter3.webp", label: "Iteration 3" },
+      { src: "/images/iterations/chicken-green-thai-curry-iter4.webp", label: "Iteration 4" },
+      { src: "/images/iterations/chicken-green-thai-curry-iter5.webp", label: "Iteration 5" },
+      { src: "/images/iterations/chicken-green-thai-curry-iter6.webp", label: "Iteration 6" },
+    ],
+  },
+  {
+    id: "veg-combo",
+    label: "Veg Combo",
+    hasRaw: false,
+    rawImg: null,
+    finalImg: "/images/products/veg-combo.webp",
+    prompt: `Professional food photography, top-down angled shot of a Thai combo meal in a staggered triangular composition on a warm beige surface.
+
+Top-right: white ceramic bowl on round rustic wooden board — veg pad thai with golden tofu, red bell pepper, purple cabbage, broccoli, baby corn, bean sprouts, edamame; bamboo chopstick lifting noodles; lime wedge on rim.
+
+Middle-left: matte beige bowl — veg green Thai curry with creamy green coconut base, baby corn, broccoli, zucchini, mushrooms, red pepper; Thai basil and red chilli on top.
+
+Bottom-centre: smaller beige bowl of fluffy jasmine rice, cilantro sprig on top. Steel spoon beside curry bowl. Soft warm directional lighting from upper-left. Shallow DOF. Bottom-right completely clear.`,
+    iterations: [
+      { src: "/images/iterations/veg-combo-iter1.webp", label: "Iteration 1" },
+      { src: "/images/iterations/veg-combo-iter2.webp", label: "Iteration 2" },
+      { src: "/images/iterations/veg-combo-iter3.webp", label: "Iteration 3" },
+      { src: "/images/iterations/veg-combo-iter4.webp", label: "Iteration 4" },
+    ],
+  },
+];
 
 export default function ProductionSection() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [activeSKU, setActiveSKU] = useState<"veg-pad-thai" | "chicken-pad-thai" | "veg-curry">("chicken-pad-thai");
+  const [activeSKU, setActiveSKU] = useState<SKUId>("chicken-pad-thai");
   const [stage, setStage] = useState<"raw" | "prompt" | "final">("raw");
 
   useEffect(() => {
@@ -31,43 +125,6 @@ export default function ProductionSection() {
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
-
-  const skus = [
-    {
-      id: "veg-pad-thai",
-      label: "Veg Pad Thai",
-      hasRaw: true,
-      rawImg: "/images/raw/veg-pad-thai-raw.png",
-      finalImg: "/images/products/veg-pad-thai.png",
-      prompt: `Veg Pad Thai: white ceramic bowl on warm cream surface. Flat rice noodles with golden tofu, broccoli, roasted peanuts, carrot ribbons, red peppers, bean sprouts. 45° elevated angle. Soft left side light. Minimal props. Bottom-right quadrant clear.`,
-      iterations: [],
-      status: "complete",
-    },
-    {
-      id: "chicken-pad-thai",
-      label: "Chicken Pad Thai",
-      hasRaw: true,
-      rawImg: "/images/raw/chicken-pad-thai-raw.png",
-      finalImg: "/images/iterations/chicken-pad-thai-iter1.png",
-      prompt: chickenPadThaiPromptExcerpt,
-      iterations: [
-        { src: "/images/iterations/chicken-pad-thai-iter1.png", label: "Iteration A" },
-        { src: "/images/iterations/chicken-pad-thai-iter2.png", label: "Prompt documentation" },
-        { src: "/images/iterations/chicken-pad-thai-iter3.png", label: "Setup reference" },
-      ],
-      status: "complete",
-    },
-    {
-      id: "veg-curry",
-      label: "Veg Green Thai Curry",
-      hasRaw: true,
-      rawImg: "/images/raw/veg-green-thai-curry-raw.png",
-      finalImg: "/images/products/veg-green-thai-curry.png",
-      prompt: vegCurryPromptExcerpt,
-      iterations: [],
-      status: "complete",
-    },
-  ] as const;
 
   const activeSKUData = skus.find(s => s.id === activeSKU) ?? skus[0];
 
@@ -80,6 +137,10 @@ export default function ProductionSection() {
     }
     return activeSKUData.finalImg;
   };
+
+  const stageButtons = (["raw", "prompt", "final"] as const).filter(s =>
+    s !== "raw" || activeSKUData.hasRaw
+  );
 
   return (
     <section
@@ -121,6 +182,7 @@ export default function ProductionSection() {
         {/* SKU selector */}
         <div style={{
           display: "flex",
+          flexWrap: "wrap",
           gap: 8,
           marginBottom: 40,
           opacity: visible ? 1 : 0,
@@ -129,7 +191,7 @@ export default function ProductionSection() {
           {skus.map(sku => (
             <button
               key={sku.id}
-              onClick={() => { setActiveSKU(sku.id); setStage("raw"); }}
+              onClick={() => { setActiveSKU(sku.id); setStage(sku.hasRaw ? "raw" : "prompt"); }}
               style={{
                 padding: "8px 20px",
                 borderRadius: 24,
@@ -170,10 +232,10 @@ export default function ProductionSection() {
               width: "fit-content",
             }}>
               {([
-                { id: "raw", label: "① RAW INPUT" },
-                { id: "prompt", label: "② ITERATIONS" },
-                { id: "final", label: "③ FINAL" },
-              ] as const).map(s => (
+                { id: "raw" as const, label: "① RAW INPUT" },
+                { id: "prompt" as const, label: "② ITERATIONS" },
+                { id: "final" as const, label: "③ FINAL" },
+              ]).filter(s => stageButtons.includes(s.id)).map(s => (
                 <button
                   key={s.id}
                   onClick={() => setStage(s.id)}
@@ -238,10 +300,10 @@ export default function ProductionSection() {
             {activeSKUData.iterations.length > 0 && (
               <div>
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "rgba(255,255,255,0.4)", marginBottom: 10 }}>
-                  ALL PRODUCTION ITERATIONS
+                  ALL PRODUCTION ITERATIONS — {activeSKUData.iterations.length} ROUNDS
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-                  {activeSKUData.iterations.map((iter, i) => (
+                  {activeSKUData.iterations.map((iter) => (
                     <div
                       key={iter.src}
                       style={{ position: "relative", paddingTop: "100%", borderRadius: 10, overflow: "hidden", cursor: "pointer" }}
@@ -346,20 +408,6 @@ export default function ProductionSection() {
                     ))}
                   </div>
                 </>
-              )}
-
-              {/* Not supplied notice for missing final */}
-              {stage === "final" && !activeSKUData.finalImg && (
-                <div style={{
-                  background: "rgba(255,165,0,0.1)",
-                  borderRadius: 10,
-                  padding: "12px 16px",
-                  border: "1px solid rgba(255,165,0,0.3)",
-                }}>
-                  <p style={{ fontSize: 12, color: "rgba(255,200,100,0.9)" }}>
-                    Final image not yet completed for this SKU. Prompt and direction are fully documented in the Figma shoot sheet.
-                  </p>
-                </div>
               )}
             </div>
           </div>
