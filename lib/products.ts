@@ -138,10 +138,17 @@ Format: 2000x2000px, square, high-resolution food photography.`,
     category: "veg",
     description: "Rich coconut green curry with broccoli, pumpkin, baby corn and tofu, served with aromatic jasmine rice and finished with fresh Thai basil.",
     keyIngredients: ["Green coconut curry", "Broccoli", "Baby corn", "Pumpkin", "Tofu", "Jasmine rice", "Thai basil"],
-    heroImage: "/images/products/veg-green-thai-curry.png",
-    rawImage: "/images/raw/veg-green-thai-curry-raw.png",
-    pdpImage: "/images/products/veg-green-thai-curry.png",
-    iterations: [],
+    heroImage: "/images/products/veg-green-thai-curry.webp",
+    rawImage: "/images/raw/veg-green-thai-curry-raw.webp",
+    pdpImage: "/images/products/veg-green-thai-curry.webp",
+    iterations: [
+      { src: "/images/iterations/veg-green-thai-curry-iter1.webp", label: "Iteration 1", rejected: true, reason: "Round wooden board — peanuts as props, off-brief garnish direction" },
+      { src: "/images/iterations/veg-green-thai-curry-iter2.webp", label: "Iteration 2", rejected: true, reason: "Round wooden board — over-garnished with herbs, wider shot loses focus" },
+      { src: "/images/iterations/veg-green-thai-curry-iter3.webp", label: "Iteration 3", rejected: true, reason: "Rectangular board — green chilies as props, wrong surface shape" },
+      { src: "/images/iterations/veg-green-thai-curry-iter4.webp", label: "Iteration 4", rejected: true, reason: "Rectangular board — different angle, still wrong surface and prop direction" },
+      { src: "/images/iterations/veg-green-thai-curry-iter5.webp", label: "Iteration 5", rejected: true, reason: "Wrong background — sage green, no wooden board, steam effect overdone" },
+      { src: "/images/iterations/veg-green-thai-curry-iter6.webp", label: "Iteration 6", rejected: true, reason: "Wrong background — sage green, rice component cut from frame" },
+    ],
     prompt: `Professional food photography of a Veg Green Thai Curry Bowl served alongside a bowl of fluffy jasmine rice, shot for a premium food delivery app listing.
 
 Camera & Angle: Elevated 45–60 degree angle, mimicking how a diner would naturally look down at a meal placed on a table. Not a flat lay, not eye-level — the classic food app perspective that gives depth while clearly showing the food surface and textures.
