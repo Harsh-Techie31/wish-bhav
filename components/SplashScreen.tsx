@@ -41,6 +41,10 @@ export default function SplashScreen() {
           65%  { opacity: 1; transform: scale(1.05); }
           100% { opacity: 1; transform: scale(1); }
         }
+        @keyframes asianBy {
+          0%   { opacity: 0; transform: translateY(10px); letter-spacing: 8px; }
+          100% { opacity: 1; transform: translateY(0);    letter-spacing: 5px; }
+        }
         @keyframes starZoom {
           0%   { transform: scale(1); }
           100% { transform: scale(90); }
@@ -73,7 +77,7 @@ export default function SplashScreen() {
           }}
         />
 
-        {/* ── LOGO IMAGE (phase 1) ── actual Swish logo, white-filtered, centered */}
+        {/* ── LOGO IMAGE (phase 1) ── "Asian by" + Swish logo, centered as a unit */}
         <div
           style={{
             position: "absolute",
@@ -86,8 +90,31 @@ export default function SplashScreen() {
             transitionDuration: isZooming ? "0.3s" : "0s",
             transitionTimingFunction: "ease",
             pointerEvents: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 14,
           }}
         >
+          {/* "Asian by" kicker — fades up slightly after logo */}
+          <span
+            style={{
+              fontFamily: "var(--font-body)",
+              fontWeight: 700,
+              fontSize: 13,
+              letterSpacing: "5px",
+              color: "rgba(255,255,255,0.88)",
+              textTransform: "uppercase" as const,
+              animation: phase >= 1
+                ? "asianBy 0.7s cubic-bezier(0.22,1,0.36,1) 0.25s both"
+                : "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Asian by
+          </span>
+
+          {/* Logo with pop animation */}
           <div style={{ animation: phase >= 1 ? "logoPop 0.5s cubic-bezier(0.34,1.3,0.64,1) forwards" : "none" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
