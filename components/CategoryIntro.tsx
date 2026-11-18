@@ -110,61 +110,48 @@ export default function CategoryIntro() {
 
           </div>
 
-          {/* Right — stacked image deck */}
+          {/* Right — fanned image deck */}
           <div style={{
             position: "relative",
-            height: 560,
+            height: 600,
             opacity: visible ? 1 : 0,
             transform: visible ? "none" : "translateX(24px)",
             transition: "all 0.8s ease 0.2s",
           }}>
             {[
-              { src: "/images/products/veg-pad-thai.webp",              label: "Veg Pad Thai",              veg: true,  offset: 144, rotation: 1.5,  zIndex: 1 },
-              { src: "/images/products/chicken-pad-thai.webp",          label: "Chicken Pad Thai",          veg: false, offset: 108, rotation: -2.5, zIndex: 2 },
-              { src: "/images/products/veg-green-thai-curry-v2.webp",      label: "Veg Green Thai Curry",      veg: true,  offset: 72,  rotation: 2,    zIndex: 3 },
-              { src: "/images/products/chicken-green-thai-curry.webp",  label: "Chicken Green Thai Curry",  veg: false, offset: 36,  rotation: -1.5, zIndex: 4 },
-              { src: "/images/products/veg-combo-v2.webp",                 label: "Veg Combo",                 veg: true,  offset: 0,   rotation: 0,    zIndex: 5 },
+              { src: "/images/products/veg-pad-thai.webp",             label: "Veg Pad Thai",             veg: true,  rotation: -22, zIndex: 1 },
+              { src: "/images/products/chicken-pad-thai.webp",         label: "Chicken Pad Thai",         veg: false, rotation: -11, zIndex: 2 },
+              { src: "/images/products/veg-green-thai-curry-v2.webp",  label: "Veg Green Thai Curry",     veg: true,  rotation: 0,   zIndex: 3 },
+              { src: "/images/products/chicken-green-thai-curry.webp", label: "Chicken Green Thai Curry", veg: false, rotation: 11,  zIndex: 4 },
+              { src: "/images/products/veg-combo-v2.webp",             label: "Veg Combo",                veg: true,  rotation: 22,  zIndex: 5 },
             ].map(card => (
               <div
                 key={card.src}
                 style={{
                   position: "absolute",
-                  top: card.offset,
+                  bottom: 70,
                   left: "50%",
+                  width: 268,
+                  height: 348,
                   transform: `translateX(-50%) rotate(${card.rotation}deg)`,
-                  width: "90%",
-                  height: 400,
-                  borderRadius: 20,
-                  overflow: "hidden",
-                  zIndex: card.zIndex,
+                  transformOrigin: "50% 112%",
+                  background: "#fff",
+                  borderRadius: 28,
+                  padding: 10,
                   boxShadow: card.zIndex === 5
-                    ? "0 20px 60px rgba(0,0,0,0.28)"
-                    : "0 4px 16px rgba(0,0,0,0.14)",
+                    ? "0 20px 56px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08)"
+                    : "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06)",
+                  zIndex: card.zIndex,
                 }}
               >
-                <Image
-                  src={card.src}
-                  alt={card.label}
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "center 30%" }}
-                  sizes="600px"
-                />
-                <div style={{
-                  position: "absolute",
-                  bottom: 12,
-                  left: 12,
-                  background: "rgba(255,255,255,0.9)",
-                  padding: "4px 10px",
-                  borderRadius: 20,
-                  fontSize: 11,
-                  fontWeight: 700,
-                  color: "var(--jade)",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}>
-                  <span className={card.veg ? "veg-dot" : "nonveg-dot"} />
-                  {card.label.toUpperCase()}
+                <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: 20, overflow: "hidden" }}>
+                  <Image
+                    src={card.src}
+                    alt={card.label}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center 30%" }}
+                    sizes="290px"
+                  />
                 </div>
               </div>
             ))}

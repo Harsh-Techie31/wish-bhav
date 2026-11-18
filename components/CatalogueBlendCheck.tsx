@@ -227,104 +227,33 @@ export default function CatalogueBlendCheck() {
                 </div>
               ))}
 
-              {/* Existing catalogue reference */}
-              <div style={{
-                background: "#fff",
-                borderRadius: 14,
-                overflow: "hidden",
-                border: "1px solid var(--border)",
-              }}>
-                <div style={{ position: "relative", paddingTop: "100%", background: "var(--warm-white)" }}>
-                  <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, gap: 8 }}>
-                    <div style={{ width: 60, height: 60, borderRadius: 8, background: "var(--jasmine-cream)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>🌯</div>
-                    <span style={{ fontSize: 9, color: "var(--warm-grey)", fontWeight: 700, letterSpacing: "0.5px", textAlign: "center" }}>EXISTING SWISH SKU</span>
+              {/* Existing catalogue items */}
+              {[
+                { src: "/images/catalogue/rajma-rice-bowl.webp", name: "Rajma Rice Bowl", veg: true },
+                { src: "/images/catalogue/chicken-tikka-roll.webp", name: "Chicken Tikka Roll", veg: false },
+                { src: "/images/catalogue/chutney-cheese-sandwich.webp", name: "Chutney Cheese Sandwich", veg: true },
+              ].map(item => (
+                <div key={item.name} style={{
+                  background: "#fff",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  border: "1px solid var(--border)",
+                }}>
+                  <div style={{ position: "relative", paddingTop: "100%", background: "var(--warm-white)" }}>
+                    <Image src={item.src} alt={item.name} fill style={{ objectFit: "cover", objectPosition: "top" }} sizes="200px" />
+                    <div style={{ position: "absolute", top: 6, left: 6, background: "rgba(255,255,255,0.9)", borderRadius: 6, padding: "2px 7px", display: "flex", alignItems: "center", gap: 4 }}>
+                      <span className={item.veg ? "veg-dot" : "nonveg-dot"} />
+                    </div>
+                  </div>
+                  <div style={{ padding: "8px 10px" }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--dark-text)", lineHeight: 1.3 }}>{item.name}</div>
                   </div>
                 </div>
-                <div style={{ padding: "8px 10px" }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--warm-grey)", lineHeight: 1.3 }}>Grilled Chicken Wrap</div>
-                </div>
-              </div>
-              <div style={{
-                background: "#fff",
-                borderRadius: 14,
-                overflow: "hidden",
-                border: "1px solid var(--border)",
-              }}>
-                <div style={{ position: "relative", paddingTop: "100%", background: "var(--warm-white)" }}>
-                  <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 16, gap: 8 }}>
-                    <div style={{ width: 60, height: 60, borderRadius: 8, background: "var(--jasmine-cream)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>🍛</div>
-                    <span style={{ fontSize: 9, color: "var(--warm-grey)", fontWeight: 700, letterSpacing: "0.5px", textAlign: "center" }}>EXISTING SWISH SKU</span>
-                  </div>
-                </div>
-                <div style={{ padding: "8px 10px" }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--warm-grey)", lineHeight: 1.3 }}>Rajma Rice Bowl</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Consistency checklist */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 16,
-          opacity: visible ? 1 : 0,
-          transition: "opacity 0.6s ease 0.4s",
-        }}>
-          {[
-            {
-              title: "BACKGROUND",
-              status: "✓",
-              desc: "Warm cream / beige stone — the Swish catalogue default for mid-range SKUs.",
-              ok: true,
-            },
-            {
-              title: "CAMERA ANGLE",
-              status: "✓",
-              desc: "45° three-quarter for noodles. Slightly more top-down for curry/gravy dishes.",
-              ok: true,
-            },
-            {
-              title: "LIGHT QUALITY",
-              status: "✓",
-              desc: "Soft diffused warm light from the top-left. No harsh flash. No dramatic shadows.",
-              ok: true,
-            },
-            {
-              title: "FOOD SCALE",
-              status: "✓",
-              desc: "60–70% frame fill. Consistent across all five dishes and existing catalogue.",
-              ok: true,
-            },
-            {
-              title: "SAFE ZONE",
-              status: "✓",
-              desc: "Bottom-right quadrant clear in every image. Add button placement unobstructed.",
-              ok: true,
-            },
-            {
-              title: "VEG / NON-VEG",
-              status: "✓",
-              desc: "Veg and non-veg distinction immediately legible from the food itself — no ambiguity.",
-              ok: true,
-            },
-          ].map(item => (
-            <div key={item.title} style={{
-              background: "#fff",
-              borderRadius: 14,
-              padding: "18px 20px",
-              border: "1px solid var(--border)",
-              borderLeft: `3px solid ${item.ok ? "var(--swish-green)" : "var(--chilli-red)"}`,
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ fontSize: 16, color: item.ok ? "var(--swish-green)" : "var(--chilli-red)", fontWeight: 900 }}>{item.status}</span>
-                <span style={{ fontWeight: 800, fontSize: 11, letterSpacing: "1.5px", color: "var(--jade)" }}>{item.title}</span>
-              </div>
-              <p style={{ fontSize: 12, color: "var(--muted-text)", lineHeight: 1.5 }}>{item.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

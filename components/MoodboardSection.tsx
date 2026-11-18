@@ -90,9 +90,6 @@ export default function MoodboardSection() {
             }}>
               VISUAL<br />DIRECTION.
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.6)", maxWidth: 400, lineHeight: 1.6 }}>
-              A creative director&apos;s framework for making five Thai dishes feel like one coherent category — and belong naturally inside the existing Swish catalogue.
-            </p>
           </div>
         </div>
 
@@ -180,32 +177,6 @@ export default function MoodboardSection() {
               ))}
             </div>
 
-            {/* Direction rules */}
-            <div style={{
-              marginTop: 40,
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 16,
-            }}>
-              {[
-                { label: "ANGLE", value: "45° three-quarter. Slightly more top-down for curry/gravy dishes." },
-                { label: "LIGHT", value: "Soft left side light. Warm golden tone. Subtle shadows for depth — not drama." },
-                { label: "CROP FILL", value: "60–70% of frame. Breathing room. Food never touching all four edges." },
-                { label: "BACKGROUND", value: "Warm cream / beige stone. Matches the Swish catalogue default." },
-                { label: "PROPS", value: "Max 2. Small and supporting only — a ramekin, a herb, a spoon. Never competing." },
-                { label: "BOTTOM-RIGHT", value: "ALWAYS clear. This is where the Swish Add button lives." },
-              ].map(rule => (
-                <div key={rule.label} style={{
-                  background: "rgba(255,255,255,0.06)",
-                  borderRadius: 10,
-                  padding: "16px 20px",
-                  borderLeft: "2px solid var(--swish-green)",
-                }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "2px", color: "var(--swish-green)", marginBottom: 8 }}>{rule.label}</div>
-                  <div style={{ fontSize: 13, lineHeight: 1.5, opacity: 0.85 }}>{rule.value}</div>
-                </div>
-              ))}
-            </div>
           </div>
         )}
 

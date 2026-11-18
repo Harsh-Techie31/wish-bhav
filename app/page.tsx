@@ -8,7 +8,6 @@ import SKUShowcase from "@/components/SKUShowcase";
 import InteractivePhone from "@/components/InteractivePhone";
 import ProductionSection from "@/components/ProductionSection";
 import CatalogueBlendCheck from "@/components/CatalogueBlendCheck";
-import FinalDeliverables from "@/components/FinalDeliverables";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
         <InteractivePhone />
         <ProductionSection />
         <CatalogueBlendCheck />
-        <FinalDeliverables />
       </main>
       <Footer />
     </>
