@@ -881,9 +881,26 @@ export default function InteractivePhone() {
             NOT JUST A<br />PRETTY PICTURE.<br />
             <span style={{ color: "var(--swish-green)" }}>A PRODUCT<br />THAT SELLS.</span>
           </h2>
-          <p style={{ fontSize: 15, color: "var(--muted-text)", lineHeight: 1.7, maxWidth: 360 }}>
-            See how the new Asian category lives inside the Swish experience. Fully interactive — tap products, add to cart, filter by diet.
+          <p style={{ fontSize: 15, color: "var(--muted-text)", lineHeight: 1.7, maxWidth: 360, marginBottom: 0 }}>
+            See how the new Asian category lives inside the Swish experience.
           </p>
+          <div style={{
+            marginTop: 44,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            background: "#E8273A",
+            color: "#fff",
+            borderRadius: 100,
+            padding: "11px 20px",
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.1px",
+            boxShadow: "0 6px 24px rgba(232,39,58,0.38)",
+          }}>
+            <span style={{ fontSize: 15, lineHeight: 1 }}>⚡</span>
+            Fully interactive — tap products, add to cart, filter by diet.
+          </div>
         </div>
 
         {/* ── RIGHT: Phone + toggle ── */}
