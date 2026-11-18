@@ -25,8 +25,6 @@ Surface: deep dark forest-green textured linen. Bottom-right quadrant completely
     iterations: [
       { src: "/images/iterations/veg-pad-thai-iter1.webp", label: "Iteration 1" },
       { src: "/images/iterations/veg-pad-thai-iter2.webp", label: "Iteration 2" },
-      { src: "/images/iterations/veg-pad-thai-iter3.webp", label: "Iteration 3" },
-      { src: "/images/iterations/veg-pad-thai-iter4.webp", label: "Iteration 4" },
       { src: "/images/iterations/veg-pad-thai-iter5.webp", label: "Iteration 5" },
       { src: "/images/iterations/veg-pad-thai-iter6.webp", label: "Iteration 6" },
     ],
@@ -47,7 +45,6 @@ Lighting: soft warm directional from top-left, gentle shadow cast to bottom-righ
     iterations: [
       { src: "/images/iterations/chicken-pad-thai-iter1.webp", label: "Iteration 1" },
       { src: "/images/iterations/chicken-pad-thai-iter2.webp", label: "Iteration 2" },
-      { src: "/images/iterations/chicken-pad-thai-iter3.webp", label: "Iteration 3" },
     ],
   },
   {
@@ -85,7 +82,6 @@ Lighting: soft diffused from top-left, gentle highlights on curry surface. No ha
 Background: warm muted sage green surface. Lighting: soft directional from upper-left, 45-degree angle. Chicken must be golden-seared and prominently above curry level. Bottom-right quadrant completely clear for UI overlay. Hyper-realistic commercial food photography, 8K.`,
     iterations: [
       { src: "/images/iterations/chicken-green-thai-curry-iter1.webp", label: "Iteration 1" },
-      { src: "/images/iterations/chicken-green-thai-curry-iter2.webp", label: "Iteration 2" },
       { src: "/images/iterations/chicken-green-thai-curry-iter3.webp", label: "Iteration 3" },
       { src: "/images/iterations/chicken-green-thai-curry-iter4.webp", label: "Iteration 4" },
       { src: "/images/iterations/chicken-green-thai-curry-iter5.webp", label: "Iteration 5" },
@@ -97,7 +93,7 @@ Background: warm muted sage green surface. Lighting: soft directional from upper
     label: "Veg Combo",
     hasRaw: false,
     rawImg: null,
-    finalImg: "/images/products/veg-combo.webp",
+    finalImg: "/images/products/veg-combo-v2.webp",
     prompt: `Professional food photography, top-down angled shot of a Thai combo meal in a staggered triangular composition on a warm beige surface.
 
 Top-right: white ceramic bowl on round rustic wooden board — veg pad thai with golden tofu, red bell pepper, purple cabbage, broccoli, baby corn, bean sprouts, edamame; bamboo chopstick lifting noodles; lime wedge on rim.
@@ -108,7 +104,6 @@ Bottom-centre: smaller beige bowl of fluffy jasmine rice, cilantro sprig on top.
     iterations: [
       { src: "/images/iterations/veg-combo-iter1.webp", label: "Iteration 1" },
       { src: "/images/iterations/veg-combo-iter2.webp", label: "Iteration 2" },
-      { src: "/images/iterations/veg-combo-iter3.webp", label: "Iteration 3" },
       { src: "/images/iterations/veg-combo-iter4.webp", label: "Iteration 4" },
     ],
   },

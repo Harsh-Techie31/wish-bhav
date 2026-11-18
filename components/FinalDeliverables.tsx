@@ -18,7 +18,7 @@ export default function FinalDeliverables() {
     { filename: "SWISH_ASIAN_ChickenPadThai_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/chicken-pad-thai.webp", sku: products[1] },
     { filename: "SWISH_ASIAN_VegGreenThaiCurry_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-green-thai-curry-v2.webp", sku: products[2] },
     { filename: "SWISH_ASIAN_ChickenGreenThaiCurry_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/chicken-green-thai-curry.webp", sku: products[3] },
-    { filename: "SWISH_ASIAN_VegCombo_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-combo.webp", sku: products[4] },
+    { filename: "SWISH_ASIAN_VegCombo_1x1.webp", status: "ready", size: "2000×2000px", src: "/images/products/veg-combo-v2.webp", sku: products[4] },
   ];
 
   const statusColors: Record<string, string> = {

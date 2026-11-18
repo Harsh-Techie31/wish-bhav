@@ -123,7 +123,7 @@ export default function CategoryIntro() {
               { src: "/images/products/chicken-pad-thai.webp",          label: "Chicken Pad Thai",          veg: false, offset: 108, rotation: -2.5, zIndex: 2 },
               { src: "/images/products/veg-green-thai-curry-v2.webp",      label: "Veg Green Thai Curry",      veg: true,  offset: 72,  rotation: 2,    zIndex: 3 },
               { src: "/images/products/chicken-green-thai-curry.webp",  label: "Chicken Green Thai Curry",  veg: false, offset: 36,  rotation: -1.5, zIndex: 4 },
-              { src: "/images/products/veg-combo.webp",                 label: "Veg Combo",                 veg: true,  offset: 0,   rotation: 0,    zIndex: 5 },
+              { src: "/images/products/veg-combo-v2.webp",                 label: "Veg Combo",                 veg: true,  offset: 0,   rotation: 0,    zIndex: 5 },
             ].map(card => (
               <div
                 key={card.src}
