@@ -32,10 +32,17 @@ export const products: Product[] = [
     category: "veg",
     description: "Silky flat rice noodles wok-tossed with golden tofu, crisp broccoli, sweet carrot ribbons and roasted peanuts in a tamarind-kissed Pad Thai sauce.",
     keyIngredients: ["Flat rice noodles", "Tofu", "Broccoli", "Roasted peanuts", "Carrot", "Red peppers", "Bean sprouts"],
-    heroImage: "/images/products/veg-pad-thai.png",
-    rawImage: "/images/raw/veg-pad-thai-raw.png",
-    pdpImage: "/images/products/veg-pad-thai.png",
-    iterations: [],
+    heroImage: "/images/products/veg-pad-thai.webp",
+    rawImage: "/images/raw/veg-pad-thai-raw.webp",
+    pdpImage: "/images/products/veg-pad-thai.webp",
+    iterations: [
+      { src: "/images/iterations/veg-pad-thai-iter1.webp", label: "Iteration 1", rejected: true, reason: "Dark green backdrop — wide frame, fork & glass visible, lacks product focus" },
+      { src: "/images/iterations/veg-pad-thai-iter2.webp", label: "Iteration 2", rejected: true, reason: "Dark green — tofu scattered across bowl, no dominant hero placement" },
+      { src: "/images/iterations/veg-pad-thai-iter3.webp", label: "Iteration 3", rejected: true, reason: "Dark green — near-duplicate of Iteration 2, same composition issues" },
+      { src: "/images/iterations/veg-pad-thai-iter4.webp", label: "Iteration 4", rejected: true, reason: "Wrong surface — warm beige with wooden board, off-brief" },
+      { src: "/images/iterations/veg-pad-thai-iter5.webp", label: "Iteration 5", rejected: true, reason: "Wrong background — sage green linen, noodle-lift action but style mismatch" },
+      { src: "/images/iterations/veg-pad-thai-iter6.webp", label: "Iteration 6", rejected: true, reason: "Wrong background — sage green, over-scattered garnish arrangement" },
+    ],
     prompt: `45-degree overhead food photography of Veg Pad Thai Noodles in a wide white ceramic bowl, bowl occupies approximately 55-60% of the square frame and is centered slightly above the midpoint, flat rice noodles tossed with prominently visible golden pan-seared tofu cubes (at least 6-8 large rectangular pieces with clearly visible crispy golden-brown crust on edges, placed intentionally on top of the noodles as the hero protein), scrambled egg ribbons woven through the noodles, crunchy bean sprouts, julienned carrot, thin red bell pepper strips, sliced baby corn rounds, a few pieces of broccoli floret, spring onion rings garnished on top, single lime wedge resting on the bowl rim at 10 o'clock position.
 
 The tofu must be the visual anchor — large, golden, crispy-edged cubes sitting proudly on top, catching the light with a slight sheen, clearly distinguishable as tofu and not chicken. They should have a firm, pan-fried texture with visible browning and slight char marks on flat surfaces, not soft or pale or crumbly.
