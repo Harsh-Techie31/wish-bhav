@@ -128,7 +128,7 @@ function CategoryTabs({ active, setActive }: { active: string; setActive: (c: st
   const tabs = [
     { id: "all", label: "All Items", type: "starburst" },
     { id: "noodles", label: "Noodles", img: "/images/products/veg-pad-thai.webp" },
-    { id: "curries", label: "Curries", img: "/images/products/veg-green-thai-curry.webp" },
+    { id: "curries", label: "Curries", img: "/images/products/veg-green-thai-curry-v2.webp" },
     { id: "combos", label: "Combos", emoji: "🍱" },
   ];
 

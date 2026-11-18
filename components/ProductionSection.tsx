@@ -55,7 +55,7 @@ Lighting: soft warm directional from top-left, gentle shadow cast to bottom-righ
     label: "Veg Green Thai Curry",
     hasRaw: true,
     rawImg: "/images/raw/veg-green-thai-curry-raw.webp",
-    finalImg: "/images/products/veg-green-thai-curry.webp",
+    finalImg: "/images/products/veg-green-thai-curry-v2.webp",
     prompt: `Professional food photography of a Veg Green Thai Curry Bowl served alongside a bowl of fluffy jasmine rice. Camera: elevated 45–60 degree angle.
 
 Composition: Two bowls on a rustic wooden rectangular serving board — green Thai curry in foreground-left, jasmine rice in mid-right. Steel spoon placed diagonally. Small condiment bowl of crushed peanuts in background.
