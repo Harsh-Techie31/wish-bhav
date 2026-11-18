@@ -757,25 +757,8 @@ function AppHeader({ cartCount, onCartClick, currentScreen, onBack }: {
         </svg>
       </button>
       <span style={{ fontWeight: 700, fontSize: 13, color: "#1A1A1A", flex: 1 }}>
-        {currentScreen === "product" ? "Product Details" : "Your Cart"}
+        Your Cart
       </span>
-      {currentScreen === "product" && (
-        <button onClick={onCartClick} style={{ position: "relative", background: "none", border: "none", cursor: "pointer" }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M1 1H4L5.68 10.39C5.77 10.9 6.14 11.33 6.63 11.5L18 14.5L19 8H7" stroke="#1A1A1A" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="8.5" cy="17" r="1.5" fill="#1A1A1A"/>
-            <circle cx="16.5" cy="17" r="1.5" fill="#1A1A1A"/>
-          </svg>
-          {cartCount > 0 && (
-            <span style={{
-              position: "absolute", top: -1, right: -1,
-              background: "#33C362", color: "#fff", borderRadius: "50%",
-              width: 13, height: 13, fontSize: 8, fontWeight: 700,
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>{cartCount}</span>
-          )}
-        </button>
-      )}
     </div>
   );
 }
