@@ -927,8 +927,8 @@ export default function InteractivePhone() {
 
             {/* Phone body — Space Black titanium */}
             <div style={{
-              width: 340,
-              height: 735,
+              width: 310,
+              height: 670,
               background: "linear-gradient(160deg, #3A3A3C 0%, #1C1C1E 35%, #28282A 70%, #1C1C1E 100%)",
               borderRadius: 56,
               padding: 11,
